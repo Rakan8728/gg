@@ -146,43 +146,39 @@
 <body>
 
 <div class="container">
-    <!-- Dil Seçici -->
+    <!-- Dil Seçim Alanı -->
     <div class="language-switcher">
-        <button id="btn-tr" class="lang-btn active" onclick="switchLanguage('tr')">TR</button>
+        <button id="btn-tr" class="lang-btn" onclick="switchLanguage('tr')">TR</button>
         <button id="btn-ar" class="lang-btn" onclick="switchLanguage('ar')">AR</button>
         <button id="btn-en" class="lang-btn" onclick="switchLanguage('en')">EN</button>
     </div>
 
-    <!-- Başlık ve Tanım -->
-    <h1 id="main-title">🗑️ Akıllı Çöp Kovası Projesi: Ağırlık Sensörü Dönüşümü</h1>
-    <p id="project-desc">Bu projede, çöp kovasının doluluk oranını mesafe yerine kilogram (ağırlık) bazlı ölçmek amacıyla ultrasonik sensör yerine bir Yük Hücresi (Load Cell) ve HX711 Amplifikatör modülü kullanılmıştır. HX711, çöp kutusunun altındaki küçük analog ağırlık değişimlerini Raspberry Pi 5'inizin okuyabileceği dijital sayılara dönüştürür.</p>
+    <!-- Dinamik Metin Alanları -->
+    <h1 id="main-title"></h1>
+    <p id="project-desc"></p>
 
-    <!-- Donanım Kurulumu -->
-    <h2 id="hw-setup-title">🛠️ Donanım Kurulumu</h2>
-    <p id="hw-setup-desc">Yük hücresi düzeneğini çöp kovanızın tabanına yerleştirin. HX711 modülünün Raspberry Pi 5 bağlantılarını aşağıdaki şemaya göre yapın:</p>
+    <h2 id="hw-setup-title"></h2>
+    <p id="hw-setup-desc"></p>
     <ul class="pin-list">
-        <li id="pin-vcc">VCC → Pi Pin 2 veya 4 (5V Güç)</li>
-        <li id="pin-gnd">GND → Pi Pin 6 (Toprak / Ground)</li>
-        <li id="pin-dt">DT (Data) → Pi GPIO 5 (Pin 29)</li>
-        <li id="pin-sck">SCK (Clock) → Pi GPIO 6 (Pin 31)</li>
+        <li id="pin-vcc"></li>
+        <li id="pin-gnd"></li>
+        <li id="pin-dt"></li>
+        <li id="pin-sck"></li>
     </ul>
-    <p><a href="https://youtube.com" class="video-btn" target="_blank" id="btn-video-hw">📺 Bağlantı Rehberi Videosunu İzle (YouTube)</a></p>
+    <p><a href="https://youtube.com" class="video-btn" target="_blank" id="btn-video-hw"></a></p>
 
-    <!-- Kütüphane Kurulumu -->
-    <h2 id="lib-install-title">💻 Kurulum ve Gerekli Kütüphaneler</h2>
-    <p id="lib-install-desc">Raspberry Pi 5 üzerinde GPIO hatları aracılığıyla sensörle haberleşmek ve web bildirimlerini yönetmek için terminale aşağıdaki komutları yazın:</p>
+    <h2 id="lib-install-title"></h2>
+    <p id="lib-install-desc"></p>
     <pre><code>pip install hx711 pywebpush flask</code></pre>
-    <p><a href="https://youtube.com" class="video-btn" target="_blank" id="btn-video-playlist">📺 Tüm Proje Oynatma Listesini İzle (YouTube)</a></p>
+    <p><a href="https://youtube.com" class="video-btn" target="_blank" id="btn-video-playlist"></a></p>
 
-    <!-- VAPID Anahtarları -->
-    <h2 id="vapid-title">🔑 Bildirim Anahtarlarını (VAPID) Üretme</h2>
-    <p id="vapid-desc">Web tarayıcınıza anlık bildirim gönderebilmek için güvenlik anahtarlarına ihtiyacınız vardır. Raspberry Pi terminalinde aşağıdaki komutu çalıştırarak anahtarlarınızı oluşturun:</p>
+    <h2 id="vapid-title"></h2>
+    <p id="vapid-desc"></p>
     <pre><code>python3 -c "from pywebpush import webpush_vapid_keys; keys = webpush_vapid_keys(); print(f'\nPUBLIC KEY:\n{keys[\"public_key\"]}\n\nPRIVATE KEY:\n{keys[\"private_key\"]}\n')"</code></pre>
-    <p id="vapid-note">Terminal ekranına basılan bu anahtarları kopyalayın ve aşağıdaki Python kodundaki ilgili yerlere yapıştırın.</p>
+    <p id="vapid-note"></p>
 
-    <!-- Python Kodu -->
-    <h2 id="code-title">📝 Güncellenmiş Python Kodu (app.py)</h2>
-    <p id="code-desc">Aşağıdaki betik, arka planda çöpün ağırlığını sürekli izler. BIN_EMPTY_WEIGHT değeri sayesinde boş kovanın kendi ağırlığı dara olarak düşülür.</p>
+    <h2 id="code-title"></h2>
+    <p id="code-desc"></p>
     <pre><code># app.py
 from flask import Flask, render_template, request, jsonify
 from hx711 import HX711 
@@ -255,12 +251,48 @@ if __name__ == '__main__':
     threading.Thread(target=monitor_weight, daemon=True).start()
     app.run(host='0.0.0.0', port=5000)</code></pre>
 
-    <!-- Playit.gg -->
-    <h2 id="playit-title">🌐 Projeyi İnternete Açma (playit.gg Kurulumu)</h2>
-    <p id="playit-desc">Oluşturduğunuz web sitesine ev dışındayken de erişebilmek için playit.gg tünelleme yazılımını kullanacağız:</p>
+    <h2 id="playit-title"></h2>
+    <p id="playit-desc"></p>
     <div class="info-box">
         <ol>
-            <li id="playit-step1">Raspberry Pi terminalinde playit.gg istemcisini kurun:</li>
+            <li id="playit-step1"></li>
             <pre><code>curl -SsL https://github.io | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/playit.gpg > /dev/null
 echo "deb [signed-by=/etc/apt/trusted.gpg.d/playit.gpg] https://github.io ./ " | sudo tee /etc/apt/sources.list.d/playit.list
 sudo apt update && sudo apt install playit -y</code></pre>
+            <li id="playit-step2"></li>
+            <li id="playit-step3"></li>
+            <li id="playit-step4"></li>
+        </ol>
+    </div>
+
+    <h2 id="run-title"></h2>
+    <p id="run-desc"></p>
+    <pre><code>python3 app.py</code></pre>
+    <p id="run-note"></p>
+
+    <h2 id="calib-title"></h2>
+    <div class="highlight-box">
+        <ol>
+            <li id="calib-step1"></li>
+            <li id="calib-step2"></li>
+            <li id="calib-step3"></li>
+        </ol>
+    </div>
+    <p><a href="https://youtube.com" class="video-btn" target="_blank" id="btn-video-calib"></a></p>
+</div>
+
+<script>
+    const translations = {
+        tr: {
+            dir: "ltr",
+            mainTitle: "🗑️ Akıllı Çöp Kovası Projesi: Ağırlık Sensörü Dönüşümü",
+            projectDesc: "Bu projede, çöp kovasının doluluk oranını mesafe yerine kilogram (ağırlık) bazlı ölçmek amacıyla ultrasonik sensör yerine bir Yük Hücresi (Load Cell) ve HX711 Amplifikatör modülü kullanılmıştır. HX711, çöp kutusunun altındaki küçük analog ağırlık değişimlerini Raspberry Pi 5'inizin okuyabileceği dijital sayılara dönüştürür.",
+            hwSetupTitle: "🛠️ Donanım Kurulumu",
+            hwSetupDesc: "Yük hücresi düzeneğini çöp kovanızın tabanına yerleştirin. HX711 modülünün Raspberry Pi 5 bağlantılarını aşağıdaki şemaya göre yapın:",
+            pinVcc: "VCC → Pi Pin 2 veya 4 (5V Güç)",
+            pinGnd: "GND → Pi Pin 6 (Toprak / Ground)",
+            pinDt: "DT (Data) → Pi GPIO 5 (Pin 29)",
+            pinSck: "SCK (Clock) → Pi GPIO 6 (Pin 31)",
+            btnVideoHw: "📺 Bağlantı Rehberi Videosunu İzle (YouTube)",
+            libInstallTitle: "💻 Kurulum ve Gerekli Kütüphaneler",
+            libInstallDesc: "Raspberry Pi 5 üzerinde GPIO hatları aracılığıyla sensörle haberleşmek ve web bildirimlerini yönetmek için terminale aşağıdaki komutları yazın:",
