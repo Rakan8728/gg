@@ -213,7 +213,10 @@ def monitor_weight():
 
 if __name__ == '__main__':
     threading.Thread(target=monitor_weight, daemon=True).start()
-    app.run(host='0.0.0.0', port=5000)</code></pre>
+    app.run(host='0.0.0.0', port=5000)
+    (in terminal: python3 -c "from pywebpush import webpush_vapid_keys; keys = webpush_vapid_keys(); print(f'\nPUBLIC KEY:\n{keys[\"public_key\"]}\n\nPRIVATE KEY:\n{keys[\"private_key\"]}\n')"
+)
+    </code></pre>
 
     <h2>⚖️ Kalibrasyon Değeri (REFERENCE_UNIT) Nasıl Bulunur?</h2>
     <p>Her yük hücresi fabrikasyon olarak tamamen benzersiz elektrik direnç değerlerine sahiptir. Sistemi kararlı bir şekilde kullanabilmek için bir defaya mahsus kalibre etmeniz gerekir:</p>
