@@ -23,7 +23,6 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             position: relative;
         }
-        /* Dil Seçici Stil Alanı */
         .language-switcher {
             position: absolute;
             top: 20px;
@@ -146,14 +145,13 @@
 <body>
 
 <div class="container">
-    <!-- Dil Seçim Butonları -->
+    <!-- أزرار تبديل اللغات -->
     <div class="language-switcher">
         <button class="lang-btn active" onclick="switchLanguage('tr')">TR</button>
         <button class="lang-btn" onclick="switchLanguage('ar')">AR</button>
         <button class="lang-btn" onclick="switchLanguage('en')">EN</button>
     </div>
 
-    <!-- Çok Dilli İçerik Alanları -->
     <h1 id="main-title"></h1>
     <p id="project-desc"></p>
 
@@ -226,7 +224,8 @@ def send_push_notifications(net_cop_kilosu):
         try:
             webpush(sub, payload, VAPID_PRIVATE_KEY, VAPID_CLAIMS)
         except WebPushException as ex:
-            if ex.response and ex.response.status_code in:
+            # تم إصلاح الخطأ البرمجي هنا بإضافة قائمة التحقق المكتملة [404, 410]
+            if ex.response and ex.response.status_code in [404, 410]:
                 subscriptions.remove(sub)
 
 def monitor_weight():
@@ -282,7 +281,6 @@ sudo apt update && sudo apt install playit -y</code></pre>
 </div>
 
 <script>
-    // Dil Çeviri Veri Tabanı
     const translations = {
         tr: {
             dir: "ltr",
@@ -296,3 +294,4 @@ sudo apt update && sudo apt install playit -y</code></pre>
             pinSck: "SCK (Clock) → Pi GPIO 6 (Pin 31)",
             btnVideoHw: "📺 Bağlantı Rehberi Videosunu İzle (YouTube)",
             libInstallTitle: "💻 Kurulum ve Gerekli Kütüphaneler",
+            libInstallDesc: "Raspberry Pi 5 üzerinde GPIO hatları aracılığıyla sensörle haberleşmek ve web bildirimlerini yönetmek için terminale aşağıdaki komutları yazın:",
